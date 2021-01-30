@@ -19,11 +19,12 @@ namespace VensimConsole
                 System.Console.WriteLine(ex.Message);
 
             }
-            Regex rg = new Regex(@"\(\d{3}\)");
+            Regex rg = new Regex(@"\((\d{3})\)\s+((\w+\s)*\w*)=");
             var matches = rg.Matches(fileText);
-            foreach (var item in matches)
+            System.Console.WriteLine($"{matches.Count} matches found");
+            foreach (Match item in matches)
             {
-                System.Console.WriteLine(item.ToString());
+                System.Console.WriteLine($"{item.Groups[1]}--{item.Groups[2]}");
             }
 
 
