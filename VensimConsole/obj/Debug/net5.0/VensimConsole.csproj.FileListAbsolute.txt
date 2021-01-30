@@ -1,0 +1,16 @@
+C:\Users\SM\Documents\Vensim\VensimConsole\bin\Debug\net5.0\VensimConsole.exe
+C:\Users\SM\Documents\Vensim\VensimConsole\bin\Debug\net5.0\VensimConsole.deps.json
+C:\Users\SM\Documents\Vensim\VensimConsole\bin\Debug\net5.0\VensimConsole.runtimeconfig.json
+C:\Users\SM\Documents\Vensim\VensimConsole\bin\Debug\net5.0\VensimConsole.runtimeconfig.dev.json
+C:\Users\SM\Documents\Vensim\VensimConsole\bin\Debug\net5.0\VensimConsole.dll
+C:\Users\SM\Documents\Vensim\VensimConsole\bin\Debug\net5.0\ref\VensimConsole.dll
+C:\Users\SM\Documents\Vensim\VensimConsole\bin\Debug\net5.0\VensimConsole.pdb
+C:\Users\SM\Documents\Vensim\VensimConsole\obj\Debug\net5.0\VensimConsole.csprojAssemblyReference.cache
+C:\Users\SM\Documents\Vensim\VensimConsole\obj\Debug\net5.0\VensimConsole.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SM\Documents\Vensim\VensimConsole\obj\Debug\net5.0\VensimConsole.AssemblyInfoInputs.cache
+C:\Users\SM\Documents\Vensim\VensimConsole\obj\Debug\net5.0\VensimConsole.AssemblyInfo.cs
+C:\Users\SM\Documents\Vensim\VensimConsole\obj\Debug\net5.0\VensimConsole.csproj.CoreCompileInputs.cache
+C:\Users\SM\Documents\Vensim\VensimConsole\obj\Debug\net5.0\VensimConsole.dll
+C:\Users\SM\Documents\Vensim\VensimConsole\obj\Debug\net5.0\ref\VensimConsole.dll
+C:\Users\SM\Documents\Vensim\VensimConsole\obj\Debug\net5.0\VensimConsole.pdb
+C:\Users\SM\Documents\Vensim\VensimConsole\obj\Debug\net5.0\VensimConsole.genruntimeconfig.cache
