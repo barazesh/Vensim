@@ -6,11 +6,10 @@ namespace VensimConsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
             System.Console.WriteLine("Welcome to the Vensim PLE Variable Extractor");
-            // System.Console.WriteLine("Please enter file name containing vensim variable data");
-            // var filePath = Console.ReadLine();
-            string filePath ="Vensim-Variables.txt";
+            System.Console.WriteLine("Please enter file name containing vensim variable data");
+            var filePath = Console.ReadLine();
+            // string filePath ="Vensim-Variables.txt";
             VensimVariableExtractor.Extract(filePath);
         }
     }

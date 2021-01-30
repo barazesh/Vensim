@@ -1,0 +1,623 @@
+[
+  {
+    "Number": 1,
+    "Name": "Average Daily Battery Eenergy",
+    "Value": "(Regular Consumer Average Demand/30)*Storage to Daily Load Factor",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 2,
+    "Name": "Battery Cost",
+    "Value": " INTEG (-Battery Cost Reduction,600)",
+    "Unit": "Dollar/kWh"
+  },
+  {
+    "Number": 3,
+    "Name": "Battery Cost Reduction",
+    "Value": "effect of Customers on Battery Cost*effect of Minimum Battery Cost*Normal Battery Cost Reduction rate*Battery Cost",
+    "Unit": "Dollar/(kWh*Month)"
+  },
+  { "Number": 4, "Name": "Battery Life", "Value": "40", "Unit": "Month" },
+  {
+    "Number": 5,
+    "Name": "Budget Deficit",
+    "Value": " INTEG (Monthly Income Shortfall,0)",
+    "Unit": "Dollar"
+  },
+  {
+    "Number": 6,
+    "Name": "change in electricity tariff",
+    "Value": "IF THEN ELSE( MODULO(Time, Tariff Correction Period )=0 , Indicated Tariff Change, 0 )",
+    "Unit": "Dollar/(kWh*Month)"
+  },
+  {
+    "Number": 7,
+    "Name": "change in indicated prosumer demand",
+    "Value": "indicated change in Prosumer Demand",
+    "Unit": "kWh/(Month*Month*Customer)"
+  },
+  {
+    "Number": 8,
+    "Name": "change in indicated regular consumer demand",
+    "Value": "indicated change in regular Consumer Demand",
+    "Unit": "kWh/(Month*Month*Customer)"
+  },
+  {
+    "Number": 9,
+    "Name": "change in Prosumer Demand",
+    "Value": "effect of Prosumer Maximum Demand*effect of Prosumer Minimum Demand*Indicated Prosumer Demand/time to adjust Prosumer Demand",
+    "Unit": "kWh/(Month*Month*Customer)"
+  },
+  {
+    "Number": 10,
+    "Name": "change in Regular Consumer Demand",
+    "Value": "effect of Maximum Regular Consumer Demand*effect of Minimum Regular Consumer Demand*Indicated Regular Customer Demand/time to adjust Regular Consumer demand",
+    "Unit": "kWh/(Month*Month*Customer)"
+  },
+  {
+    "Number": 11,
+    "Name": "Consumer Growth",
+    "Value": "population growth rate*Total Consumers",
+    "Unit": "Customer/Month"
+  },
+  {
+    "Number": 12,
+    "Name": "Defectors",
+    "Value": " INTEG (Direct Defection By Imitation+Direct Defection by Innovation+Installing Battery By Imitation+Installing Battery by Innovation+New Defectors,0)",
+    "Unit": "Customer"
+  },
+  {
+    "Number": 13,
+    "Name": "Desired Income",
+    "Value": "Total Costs*(1+Permited Profit)",
+    "Unit": "Dollar/Month"
+  },
+  {
+    "Number": 14,
+    "Name": "Direct Defection By Imitation",
+    "Value": "IF THEN ELSE(Regular Consumers>0,direct defection imitation percent*Regular Consumers,0)",
+    "Unit": "Customer/Month"
+  },
+  {
+    "Number": 15,
+    "Name": "Direct Defection by Innovation",
+    "Value": "IF THEN ELSE(Regular Consumers>0,direct defection innovation factor*Regular Consumers*effect of direct defection NPV on innovation,0)",
+    "Unit": "Customer/Month"
+  },
+  {
+    "Number": 16,
+    "Name": "direct defection imitation factor",
+    "Value": "final yearly percent/12/1e+06",
+    "Unit": "1/(Customer*Month)"
+  },
+  {
+    "Number": 17,
+    "Name": "direct defection imitation percent",
+    "Value": "Defectors*direct defection imitation factor*effect of direct defection NPV on imitation",
+    "Unit": "1/Month"
+  },
+  {
+    "Number": 18,
+    "Name": "direct defection innovation factor",
+    "Value": "0.001/12",
+    "Unit": "1/Month"
+  },
+  {
+    "Number": 19,
+    "Name": "Direct Defection NPV",
+    "Value": "Direct Defector Net Present Savings-Direct Defection Total Cost",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 20,
+    "Name": "Direct Defection Total Cost",
+    "Value": "Total Battery Cost+Total PV Cost",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 21,
+    "Name": "Direct Defector Monthly Savings",
+    "Value": "Electricity Tariff*Regular Consumer Average Demand",
+    "Unit": "Dollar/(Month*Customer)"
+  },
+  {
+    "Number": 22,
+    "Name": "Direct Defector Net Present Savings",
+    "Value": "-Direct Defector Monthly Savings*((1-(1+Discount Rate)^(PV Life+1))/Discount Rate)",
+    "Unit": "Dollar/kWh"
+  },
+  { "Number": 23, "Name": "Discount Rate", "Value": "0.001", "Unit": "Dmnl" },
+  {
+    "Number": 24,
+    "Name": "effect of Customers on Battery Cost",
+    "Value": " WITH LOOKUP (Defectors,([(0,1)-(1e+06,2)],(100000,1),(278287,1.07895),(400612,1.16667),(486239,1.39035),(596330,1.66667),(776758,1.77632),(1e+06,1.8) ))",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 25,
+    "Name": "effect of Customers on PV Cost",
+    "Value": " WITH LOOKUP (Total Customers with PV,([(0,1)-(1e+06,2)],(100000,1),(278287,1.07895),(400612,1.16667),(486239,1.39035),(596330,1.66667),(776758,1.77632),(1e+06,1.8) ))",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 26,
+    "Name": "effect of direct defection NPV on imitation",
+    "Value": " WITH LOOKUP (Direct Defection NPV,([(0,0)-(40000,20)],(0,1),(5000,1.5),(20000,2),(40000,2.5) ))",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 27,
+    "Name": "effect of direct defection NPV on innovation",
+    "Value": " WITH LOOKUP (Direct Defection NPV,([(-5000,0)-(20000,20)],(-5000,1),(0,1.5),(5000,2),(20000,2.5) ))",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 28,
+    "Name": "effect of installing battery NPV on imitation",
+    "Value": " WITH LOOKUP (Installing Battery NPV,([(0,0)-(40000,20)],(0,1),(5000,1.5),(20000,2),(40000,2.5) ))",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 29,
+    "Name": "effect of installing battery NPV on innovation",
+    "Value": " WITH LOOKUP (Installing Battery NPV,([(-5000,0)-(20000,20)],(-5000,1),(0,1.5),(5000,2),(20000,2.5) ))",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 30,
+    "Name": "effect of Maximum Regular Consumer Demand",
+    "Value": " WITH LOOKUP (Regular Consumer Average Demand/Maximum Average Regular Consumer Demand,([(0,0)-(1,1)],(0,1),(0.8,1),(1,0) ))",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 31,
+    "Name": "effect of Minimum Battery Cost",
+    "Value": " WITH LOOKUP (Minimum Battery Cost/Battery Cost,([(0,0)-(1,1)],(0,1),(0.25,0.95),(0.4,0.8),(0.5,0.5),(0.6,0.2),(0.75,0.05),(1,0) ))",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 32,
+    "Name": "effect of Minimum PV Cost",
+    "Value": " WITH LOOKUP (Minimum PV Cost/PV Cost,([(0,0)-(1,1)],(0,1),(0.25,0.95),(0.4,0.8),(0.5,0.5),(0.6,0.2),(0.75,0.05),(1,0) ))",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 33,
+    "Name": "effect of Minimum Regular Consumer Demand",
+    "Value": " WITH LOOKUP (Minimum Average Regular Consumer Demand/Regular Consumer Average Demand,([(0,0)-(1,1)],(0,1),(0.8,1),(1,0) ))",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 34,
+    "Name": "effect of Prosumer Maximum Demand",
+    "Value": " WITH LOOKUP (Prosumer Average Demand/Maximum Average Prosumer Demand,([(0,0)-(1,1)],(0,1),(0.8,1),(1,0) ))",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 35,
+    "Name": "effect of Prosumer Minimum Demand",
+    "Value": " WITH LOOKUP (Minimum Average Prosumer Demand/Prosumer Average Demand,([(0,0)-(1,1)],(0,1),(0.8,1),(1,0) ))",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 36,
+    "Name": "effect of PV NPV",
+    "Value": " WITH LOOKUP (NPV PV Ratio,([(0,0)-(4,3)],(0,1),(0.905199,1.06579),(1.61468,1.44737),(2,2),(2.36086,2.64474),(2.92355,2.90789),(4,3) ))",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 37,
+    "Name": "Electricity Tariff",
+    "Value": " INTEG (change in electricity tariff,0.13)",
+    "Unit": "Dollar/kWh"
+  },
+  {
+    "Number": 38,
+    "Name": "Energy Procurement",
+    "Value": "Utility Energy Sale",
+    "Unit": "kWh/Month"
+  },
+  { "Number": 39, "Name": "FINAL TIME", "Value": " 240", "Unit": "Month" },
+  {
+    "Number": 40,
+    "Name": "final yearly percent",
+    "Value": "0.005",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 41,
+    "Name": "Fixed Costs",
+    "Value": "7.95e+07",
+    "Unit": "Dollar/Month"
+  },
+  {
+    "Number": 42,
+    "Name": "Generation Price",
+    "Value": "0.02",
+    "Unit": "Dollar/kWh"
+  },
+  {
+    "Number": 43,
+    "Name": "Income",
+    "Value": "Electricity Tariff*Utility Energy Sale",
+    "Unit": "Dollar/Month"
+  },
+  {
+    "Number": 44,
+    "Name": "indicated change in Prosumer Demand",
+    "Value": "change in electricity tariff*price eleasticity of prosumers*Prosumer Average Demand/Electricity Tariff",
+    "Unit": "kWh/(Month*Month*Customer)"
+  },
+  {
+    "Number": 45,
+    "Name": "indicated change in regular Consumer Demand",
+    "Value": "change in electricity tariff*Regular Consumer Average Demand*price eleasticity of regular consumers/Electricity Tariff",
+    "Unit": "kWh/(Month*Month*Customer)"
+  },
+  {
+    "Number": 46,
+    "Name": "Indicated Prosumer Demand",
+    "Value": " INTEG (change in indicated prosumer demand-change in Prosumer Demand,0)",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 47,
+    "Name": "Indicated Regular Customer Demand",
+    "Value": " INTEG (change in indicated regular consumer demand-change in Regular Consumer Demand,0)",
+    "Unit": "kWh/(Month*Customer)"
+  },
+  {
+    "Number": 48,
+    "Name": "Indicated Tariff Change",
+    "Value": "Budget Deficit/Utility Energy Sale/Tariff Correction Period",
+    "Unit": "Dollar/(Month*kWh)"
+  },
+  { "Number": 49, "Name": "INITIAL TIME", "Value": " 0", "Unit": "Month" },
+  {
+    "Number": 50,
+    "Name": "Installing Battery By Imitation",
+    "Value": "IF THEN ELSE(Prosumers>0,Prosumers*installing battery imitation percent,0)",
+    "Unit": "Customer/Month"
+  },
+  {
+    "Number": 51,
+    "Name": "Installing Battery by Innovation",
+    "Value": "installing battery innovation factor*Prosumers*effect of installing battery NPV on innovation",
+    "Unit": "Customer/Month"
+  },
+  {
+    "Number": 52,
+    "Name": "installing battery imitation factor",
+    "Value": "final yearly percent/(12*1e+06*5)",
+    "Unit": "1/(Customer*Month)"
+  },
+  {
+    "Number": 53,
+    "Name": "installing battery imitation percent",
+    "Value": "Defectors*installing battery imitation factor*effect of installing battery NPV on imitation",
+    "Unit": "1/Month"
+  },
+  {
+    "Number": 54,
+    "Name": "installing battery innovation factor",
+    "Value": "0.01/12",
+    "Unit": "1/Month"
+  },
+  {
+    "Number": 55,
+    "Name": "Installing Battery NPV",
+    "Value": "Direct Defection NPV-NPV PV",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 56,
+    "Name": "installing PV by imitation",
+    "Value": "IF THEN ELSE(Regular Consumers>0,installing PV imitation percent*Regular Consumers,0)",
+    "Unit": "Customer/Month"
+  },
+  {
+    "Number": 57,
+    "Name": "installing PV by Innovation",
+    "Value": "IF THEN ELSE( Regular Consumers > 0, effect of PV NPV*installing PV innovation factor*Regular Consumers , 0 )",
+    "Unit": "Customer/Month"
+  },
+  {
+    "Number": 58,
+    "Name": "installing PV imitation factor",
+    "Value": "effect of PV NPV*final yearly percent/12/1e+06",
+    "Unit": "1/(Month*Customer)"
+  },
+  {
+    "Number": 59,
+    "Name": "installing PV imitation percent",
+    "Value": "installing PV imitation factor*Total Customers with PV",
+    "Unit": "1/Month"
+  },
+  {
+    "Number": 60,
+    "Name": "installing PV innovation factor",
+    "Value": "0.01/12",
+    "Unit": "1/Month"
+  },
+  {
+    "Number": 61,
+    "Name": "Maximum Average Prosumer Demand",
+    "Value": "500",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 62,
+    "Name": "Maximum Average Regular Consumer Demand",
+    "Value": "1100",
+    "Unit": "kWh/(Month*Customer)"
+  },
+  {
+    "Number": 63,
+    "Name": "Minimum Average Prosumer Demand",
+    "Value": "200",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 64,
+    "Name": "Minimum Average Regular Consumer Demand",
+    "Value": "600",
+    "Unit": "kWh/(Month*Customer)"
+  },
+  {
+    "Number": 65,
+    "Name": "Minimum Battery Cost",
+    "Value": "100",
+    "Unit": "Dollar/kw"
+  },
+  {
+    "Number": 66,
+    "Name": "Minimum PV Cost",
+    "Value": "100",
+    "Unit": "Dollar/kw"
+  },
+  {
+    "Number": 67,
+    "Name": "Monthly Income Shortfall",
+    "Value": "Desired Income-Income",
+    "Unit": "Dollar/Month"
+  },
+  {
+    "Number": 68,
+    "Name": "New Defector Ratio",
+    "Value": "0.1",
+    "Unit": "Dollar"
+  },
+  {
+    "Number": 69,
+    "Name": "New Defectors",
+    "Value": "Consumer Growth*New Defector Ratio*(effect of direct defection NPV on imitation+effect of direct defection NPV on innovation)/2",
+    "Unit": "Customer/Month"
+  },
+  {
+    "Number": 70,
+    "Name": "New Prosumer Ratio",
+    "Value": "0.08*effect of PV NPV",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 71,
+    "Name": "New Prosumers",
+    "Value": "Consumer Growth*New Prosumer Ratio",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 72,
+    "Name": "New Regular Consumer Ratio",
+    "Value": "1-New Defector Ratio-New Prosumer Ratio",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 73,
+    "Name": "New Regular Consumers",
+    "Value": "Consumer Growth*New Regular Consumer Ratio",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 74,
+    "Name": "\"No. Batteries\"",
+    "Value": "INTEGER(Average Daily Battery Eenergy)+1",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 75,
+    "Name": "\"No. Bettery Replacement\"",
+    "Value": "IF THEN ELSE(MODULO(PV Life, Battery Life )=0, PV Life/Battery Life , INTEGER( PV Life/Battery Life )+1 )",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 76,
+    "Name": "\"No. PVs\"",
+    "Value": "INTEGER(Regular Consumer Average Demand*(1+Reliablity Margin)/PV monthly Generation)+1",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 77,
+    "Name": "Normal Battery Cost Reduction rate",
+    "Value": "0.006",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 78,
+    "Name": "Normal PV Cost Reduction rate",
+    "Value": "0.01",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 79,
+    "Name": "NPV PV",
+    "Value": "(NPV PV Income-PV Cost)*PV size",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 80,
+    "Name": "NPV PV Income",
+    "Value": "-PV monthly Income*((1-(1+Discount Rate)^(PV Life+1))/Discount Rate)",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 81,
+    "Name": "NPV PV Ratio",
+    "Value": "NPV PV/PV Cost",
+    "Unit": "Dmnl"
+  },
+  { "Number": 82, "Name": "Permited Profit", "Value": "0.2", "Unit": "Dmnl" },
+  {
+    "Number": 83,
+    "Name": "population growth rate",
+    "Value": "0.03/12",
+    "Unit": "1/Month"
+  },
+  {
+    "Number": 84,
+    "Name": "price eleasticity of prosumers",
+    "Value": "-0.2",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 85,
+    "Name": "price eleasticity of regular consumers",
+    "Value": "-0.1",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 86,
+    "Name": "Prosumer Average Demand",
+    "Value": " INTEG (change in Prosumer Demand,300)",
+    "Unit": "kWh/Month/Customer"
+  },
+  {
+    "Number": 87,
+    "Name": "Prosumers",
+    "Value": " INTEG (installing PV by imitation+installing PV by Innovation+New Prosumers-Installing Battery By Imitation-Installing Battery by Innovation,0)",
+    "Unit": "Customer"
+  },
+  {
+    "Number": 88,
+    "Name": "Prosumers Demand",
+    "Value": "Prosumer Average Demand*Prosumers",
+    "Unit": "kWh/Month"
+  },
+  {
+    "Number": 89,
+    "Name": "PV Cost",
+    "Value": " INTEG (-PV Cost Reduction,4000)",
+    "Unit": "Dollar/kw"
+  },
+  {
+    "Number": 90,
+    "Name": "PV Cost Reduction",
+    "Value": "effect of Customers on PV Cost*effect of Minimum PV Cost*Normal PV Cost Reduction rate*PV Cost",
+    "Unit": "**undefined**"
+  },
+  { "Number": 91, "Name": "PV Life", "Value": "240", "Unit": "Month" },
+  {
+    "Number": 92,
+    "Name": "PV monthly Generation",
+    "Value": "140",
+    "Unit": "kWh/Month"
+  },
+  {
+    "Number": 93,
+    "Name": "PV monthly Income",
+    "Value": "Electricity Tariff*PV monthly Generation",
+    "Unit": "**undefined**"
+  },
+  { "Number": 94, "Name": "PV size", "Value": "5", "Unit": "kw" },
+  {
+    "Number": 95,
+    "Name": "Regular Consumer Average Demand",
+    "Value": " INTEG (change in Regular Consumer Demand,900)",
+    "Unit": "kWh/(Month*Customer)"
+  },
+  {
+    "Number": 96,
+    "Name": "Regular Consumers",
+    "Value": " INTEG (New Regular Consumers-Direct Defection By Imitation-Direct Defection by Innovation-installing PV by imitation-installing PV by Innovation,1e+06)",
+    "Unit": "Customer"
+  },
+  {
+    "Number": 97,
+    "Name": "Regular Consumers Demand",
+    "Value": "Regular Consumer Average Demand*Regular Consumers",
+    "Unit": "kWh/Month"
+  },
+  { "Number": 98, "Name": "Reliablity Margin", "Value": "0.5", "Unit": "Dmnl" },
+  {
+    "Number": 99,
+    "Name": "SAVEPER",
+    "Value": "TIME STEP",
+    "Unit": "Month [0,?]"
+  },
+  {
+    "Number": 100,
+    "Name": "Storage to Daily Load Factor",
+    "Value": "0.5",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 101,
+    "Name": "Tariff Correction Period",
+    "Value": "24",
+    "Unit": "Month"
+  },
+  { "Number": 102, "Name": "TIME STEP", "Value": " 1", "Unit": "Month [0,?]" },
+  {
+    "Number": 103,
+    "Name": "time to adjust Prosumer Demand",
+    "Value": "3",
+    "Unit": "Month"
+  },
+  {
+    "Number": 104,
+    "Name": "time to adjust Regular Consumer demand",
+    "Value": "3",
+    "Unit": "Dmnl"
+  },
+  {
+    "Number": 105,
+    "Name": "Total Battery Cost",
+    "Value": "Battery Cost*\"No. Bettery Replacement\"*\"No. Batteries\"",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 106,
+    "Name": "Total Consumers",
+    "Value": " INTEG (Consumer Growth,1e+06)",
+    "Unit": "Customer"
+  },
+  {
+    "Number": 107,
+    "Name": "Total Costs",
+    "Value": "Fixed Costs+Variable Costs",
+    "Unit": "Dollar/Month"
+  },
+  {
+    "Number": 108,
+    "Name": "Total Customers with PV",
+    "Value": "Defectors+Prosumers",
+    "Unit": "Customer"
+  },
+  {
+    "Number": 109,
+    "Name": "Total PV Cost",
+    "Value": "\"No. PVs\"*PV Cost",
+    "Unit": "**undefined**"
+  },
+  {
+    "Number": 110,
+    "Name": "Utility Energy Sale",
+    "Value": "Prosumers Demand+Regular Consumers Demand",
+    "Unit": "kWh/Month"
+  },
+  {
+    "Number": 111,
+    "Name": "Variable Costs",
+    "Value": "Energy Procurement*Generation Price",
+    "Unit": "Dollar/Month"
+  }
+]

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace VensimConsole
 {
@@ -21,10 +22,10 @@ namespace VensimConsole
 
             }
             Regex variableRegex = new Regex(@"\((\d{3})\)\s+(.+)\=\n?([\s\S]+?)\s+Units\:\s+(.+)");
-            Regex whitespace = new Regex(@"\s{2,}");
             var matches = variableRegex.Matches(fileText);
-            System.Console.WriteLine($"{matches.Count} matches found");
+            System.Console.WriteLine($"{matches.Count} variables found");
             List<VensimVariable> variables = new List<VensimVariable>();
+            Regex whitespace = new Regex(@"\s{2,}");
             foreach (Match item in matches)
             {
                 VensimVariable temp = new VensimVariable
@@ -34,13 +35,9 @@ namespace VensimConsole
                     Value = whitespace.Replace(item.Groups[3].Value,""),
                     Unit = item.Groups[4].Value.Replace("\r\n", "").Trim()
                 };
-                System.Console.WriteLine($"{temp.Number}--{temp.Name}--{temp.Value}--{temp.Unit}");
-                System.Console.WriteLine("---------------------------------------------");
-
-
+                variables.Add(temp);
             }
-
-
+            File.WriteAllText("Variables.json",JsonConvert.SerializeObject(variables));
         }
     }
 }

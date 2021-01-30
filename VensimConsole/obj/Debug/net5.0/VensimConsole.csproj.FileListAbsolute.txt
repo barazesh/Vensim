@@ -14,3 +14,5 @@ C:\Users\SM\Documents\Vensim\VensimConsole\obj\Debug\net5.0\VensimConsole.dll
 C:\Users\SM\Documents\Vensim\VensimConsole\obj\Debug\net5.0\ref\VensimConsole.dll
 C:\Users\SM\Documents\Vensim\VensimConsole\obj\Debug\net5.0\VensimConsole.pdb
 C:\Users\SM\Documents\Vensim\VensimConsole\obj\Debug\net5.0\VensimConsole.genruntimeconfig.cache
+C:\Users\SM\Documents\Vensim\VensimConsole\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\SM\Documents\Vensim\VensimConsole\obj\Debug\net5.0\VensimConsole.csproj.CopyComplete
