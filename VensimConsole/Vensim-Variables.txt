@@ -1,0 +1,497 @@
+(001)    Average Daily Battery Eenergy=
+        (Regular Consumer Average Demand/30)*Storage to Daily Load Factor
+    Units: **undefined**
+    
+(002)    Battery Cost= INTEG (
+        -Battery Cost Reduction,
+            600)
+    Units: Dollar/kWh
+    
+(003)    Battery Cost Reduction=
+        effect of Customers on Battery Cost*effect of Minimum Battery Cost*Normal Battery Cost Reduction rate
+    *Battery Cost
+    Units: Dollar/(kWh*Month)
+    
+(004)    Battery Life=
+        40
+    Units: Month
+    
+(005)    Budget Deficit= INTEG (
+        Monthly Income Shortfall,
+            0)
+    Units: Dollar
+    
+(006)    change in electricity tariff=
+        IF THEN ELSE( MODULO(Time, Tariff Correction Period )=0 , Indicated Tariff Change
+     , 0 )
+    Units: Dollar/(kWh*Month)
+    
+(007)    change in indicated prosumer demand=
+        indicated change in Prosumer Demand
+    Units: kWh/(Month*Month*Customer)
+    
+(008)    change in indicated regular consumer demand=
+        indicated change in regular Consumer Demand
+    Units: kWh/(Month*Month*Customer)
+    
+(009)    change in Prosumer Demand=
+        effect of Prosumer Maximum Demand*effect of Prosumer Minimum Demand*Indicated Prosumer Demand
+    /time to adjust Prosumer Demand
+    Units: kWh/(Month*Month*Customer)
+    
+(010)    change in Regular Consumer Demand=
+        effect of Maximum Regular Consumer Demand*effect of Minimum Regular Consumer Demand
+    *Indicated Regular Customer Demand/time to adjust Regular Consumer demand
+    Units: kWh/(Month*Month*Customer)
+    
+(011)    Consumer Growth=
+        population growth rate*Total Consumers
+    Units: Customer/Month
+    
+(012)    Defectors= INTEG (
+        Direct Defection By Imitation+Direct Defection by Innovation+Installing Battery By Imitation
+    +Installing Battery by Innovation+New Defectors,
+            0)
+    Units: Customer
+    
+(013)    Desired Income=
+        Total Costs*(1+Permited Profit)
+    Units: Dollar/Month
+    
+(014)    Direct Defection By Imitation=
+        IF THEN ELSE(Regular Consumers>0,direct defection imitation percent*Regular Consumers
+    ,0)
+    Units: Customer/Month
+    
+(015)    Direct Defection by Innovation=
+        IF THEN ELSE(Regular Consumers>0,direct defection innovation factor*Regular Consumers
+    *effect of direct defection NPV on innovation,0)
+    Units: Customer/Month
+    
+(016)    direct defection imitation factor=
+        final yearly percent/12/1e+06
+    Units: 1/(Customer*Month)
+    
+(017)    direct defection imitation percent=
+        Defectors*direct defection imitation factor*effect of direct defection NPV on imitation
+    Units: 1/Month
+    
+(018)    direct defection innovation factor=
+        0.001/12
+    Units: 1/Month
+    
+(019)    Direct Defection NPV=
+        Direct Defector Net Present Savings-Direct Defection Total Cost
+    Units: **undefined**
+    
+(020)    Direct Defection Total Cost=
+        Total Battery Cost+Total PV Cost
+    Units: **undefined**
+    
+(021)    Direct Defector Monthly Savings=
+        Electricity Tariff*Regular Consumer Average Demand
+    Units: Dollar/(Month*Customer)
+    
+(022)    Direct Defector Net Present Savings=
+        -Direct Defector Monthly Savings*((1-(1+Discount Rate)^(PV Life+1))/Discount Rate
+    )
+    Units: Dollar/kWh
+    
+(023)    Discount Rate=
+        0.001
+    Units: Dmnl
+    
+(024)    effect of Customers on Battery Cost = WITH LOOKUP (
+        Defectors,
+            ([(0,1)-(1e+06,2)],(100000,1),(278287,1.07895),(400612,1.16667),(486239,
+    1.39035),(596330,1.66667),(776758,1.77632),(1e+06
+            ,1.8) ))
+    Units: Dmnl
+    
+(025)    effect of Customers on PV Cost = WITH LOOKUP (
+        Total Customers with PV,
+            ([(0,1)-(1e+06,2)],(100000,1),(278287,1.07895),(400612,1.16667),(486239,
+    1.39035),(596330,1.66667),(776758,1.77632),(1e+06
+            ,1.8) ))
+    Units: **undefined**
+    
+(026)    effect of direct defection NPV on imitation = WITH LOOKUP (
+        Direct Defection NPV,
+            ([(0,0)-(40000,20)],(0,1),(5000,1.5),(20000,2),(40000,2.5) ))
+    Units: **undefined**
+    
+(027)    effect of direct defection NPV on innovation = WITH LOOKUP (
+        Direct Defection NPV,
+            ([(-5000,0)-(20000,20)],(-5000,1),(0,1.5),(5000,2),(20000,2.5) ))
+    Units: Dmnl
+    
+(028)    effect of installing battery NPV on imitation = WITH LOOKUP (
+        Installing Battery NPV,
+            ([(0,0)-(40000,20)],(0,1),(5000,1.5),(20000,2),(40000,2.5) ))
+    Units: **undefined**
+    
+(029)    effect of installing battery NPV on innovation = WITH LOOKUP (
+        Installing Battery NPV,
+            ([(-5000,0)-(20000,20)],(-5000,1),(0,1.5),(5000,2),(20000,2.5) ))
+    Units: Dmnl
+    
+(030)    effect of Maximum Regular Consumer Demand = WITH LOOKUP (
+        Regular Consumer Average Demand/Maximum Average Regular Consumer Demand,
+            ([(0,0)-(1,1)],(0,1),(0.8,1),(1,0) ))
+    Units: Dmnl
+    
+(031)    effect of Minimum Battery Cost = WITH LOOKUP (
+        Minimum Battery Cost/Battery Cost,
+            ([(0,0)-(1,1)],(0,1),(0.25,0.95),(0.4,0.8),(0.5,0.5),(0.6,0.2),(0.75,0.05
+    ),(1,0) ))
+    Units: Dmnl
+    
+(032)    effect of Minimum PV Cost = WITH LOOKUP (
+        Minimum PV Cost/PV Cost,
+            ([(0,0)-(1,1)],(0,1),(0.25,0.95),(0.4,0.8),(0.5,0.5),(0.6,0.2),(0.75,0.05
+    ),(1,0) ))
+    Units: Dmnl
+    
+(033)    effect of Minimum Regular Consumer Demand = WITH LOOKUP (
+        Minimum Average Regular Consumer Demand/Regular Consumer Average Demand,
+            ([(0,0)-(1,1)],(0,1),(0.8,1),(1,0) ))
+    Units: Dmnl
+    
+(034)    effect of Prosumer Maximum Demand = WITH LOOKUP (
+        Prosumer Average Demand/Maximum Average Prosumer Demand,
+            ([(0,0)-(1,1)],(0,1),(0.8,1),(1,0) ))
+    Units: Dmnl
+    
+(035)    effect of Prosumer Minimum Demand = WITH LOOKUP (
+        Minimum Average Prosumer Demand/Prosumer Average Demand,
+            ([(0,0)-(1,1)],(0,1),(0.8,1),(1,0) ))
+    Units: Dmnl
+    
+(036)    effect of PV NPV = WITH LOOKUP (
+        NPV PV Ratio,
+            ([(0,0)-(4,3)],(0,1),(0.905199,1.06579),(1.61468,1.44737),(2,2),(2.36086
+    ,2.64474),(2.92355,2.90789),(4,3) ))
+    Units: **undefined**
+    
+(037)    Electricity Tariff= INTEG (
+        change in electricity tariff,
+            0.13)
+    Units: Dollar/kWh
+    
+(038)    Energy Procurement=
+        Utility Energy Sale
+    Units: kWh/Month
+    
+(039)    FINAL TIME  = 240
+    Units: Month
+    The final time for the simulation.
+
+(040)    final yearly percent=
+        0.005
+    Units: **undefined**
+    
+(041)    Fixed Costs=
+        7.95e+07
+    Units: Dollar/Month
+    
+(042)    Generation Price=
+        0.02
+    Units: Dollar/kWh
+    
+(043)    Income=
+        Electricity Tariff*Utility Energy Sale
+    Units: Dollar/Month
+    
+(044)    indicated change in Prosumer Demand=
+        change in electricity tariff*price eleasticity of prosumers*Prosumer Average Demand
+    /Electricity Tariff
+    Units: kWh/(Month*Month*Customer)
+    
+(045)    indicated change in regular Consumer Demand=
+        change in electricity tariff*Regular Consumer Average Demand*price eleasticity of regular consumers
+    /Electricity Tariff
+    Units: kWh/(Month*Month*Customer)
+    
+(046)    Indicated Prosumer Demand= INTEG (
+        change in indicated prosumer demand-change in Prosumer Demand,
+            0)
+    Units: **undefined**
+    
+(047)    Indicated Regular Customer Demand= INTEG (
+        change in indicated regular consumer demand-change in Regular Consumer Demand
+    ,
+            0)
+    Units: kWh/(Month*Customer)
+    
+(048)    Indicated Tariff Change=
+        Budget Deficit/Utility Energy Sale/Tariff Correction Period
+    Units: Dollar/(Month*kWh)
+    
+(049)    INITIAL TIME  = 0
+    Units: Month
+    The initial time for the simulation.
+
+(050)    Installing Battery By Imitation=
+        IF THEN ELSE(Prosumers>0,Prosumers*installing battery imitation percent,0
+    )
+    Units: Customer/Month
+    
+(051)    Installing Battery by Innovation=
+        installing battery innovation factor*Prosumers*effect of installing battery NPV on innovation
+    Units: Customer/Month
+    
+(052)    installing battery imitation factor=
+        final yearly percent/(12*1e+06*5)
+    Units: 1/(Customer*Month)
+    
+(053)    installing battery imitation percent=
+        Defectors*installing battery imitation factor*effect of installing battery NPV on imitation
+    Units: 1/Month
+    
+(054)    installing battery innovation factor=
+        0.01/12
+    Units: 1/Month
+    
+(055)    Installing Battery NPV=
+        Direct Defection NPV-NPV PV
+    Units: **undefined**
+    
+(056)    installing PV by imitation=
+        IF THEN ELSE(Regular Consumers>0,installing PV imitation percent*Regular Consumers
+    ,0)
+    Units: Customer/Month
+    
+(057)    installing PV by Innovation=
+        IF THEN ELSE( Regular Consumers > 0, effect of PV NPV*installing PV innovation factor
+    *Regular Consumers , 0 )
+    Units: Customer/Month
+    
+(058)    installing PV imitation factor=
+        effect of PV NPV*final yearly percent/12/1e+06
+    Units: 1/(Month*Customer)
+    
+(059)    installing PV imitation percent=
+        installing PV imitation factor*Total Customers with PV
+    Units: 1/Month
+    
+(060)    installing PV innovation factor=
+        0.01/12
+    Units: 1/Month
+    
+(061)    Maximum Average Prosumer Demand=
+        500
+    Units: Dmnl
+    
+(062)    Maximum Average Regular Consumer Demand=
+        1100
+    Units: kWh/(Month*Customer)
+    
+(063)    Minimum Average Prosumer Demand=
+        200
+    Units: Dmnl
+    
+(064)    Minimum Average Regular Consumer Demand=
+        600
+    Units: kWh/(Month*Customer)
+    
+(065)    Minimum Battery Cost=
+        100
+    Units: Dollar/kw
+    
+(066)    Minimum PV Cost=
+        100
+    Units: Dollar/kw
+    
+(067)    Monthly Income Shortfall=
+        Desired Income-Income
+    Units: Dollar/Month
+    
+(068)    New Defector Ratio=
+        0.1
+    Units: Dollar
+    
+(069)    New Defectors=
+        Consumer Growth*New Defector Ratio*(effect of direct defection NPV on imitation
+    +effect of direct defection NPV on innovation)/2
+    Units: Customer/Month
+    
+(070)    New Prosumer Ratio=
+        0.08*effect of PV NPV
+    Units: Dmnl
+    
+(071)    New Prosumers=
+        Consumer Growth*New Prosumer Ratio
+    Units: **undefined**
+    
+(072)    New Regular Consumer Ratio=
+        1-New Defector Ratio-New Prosumer Ratio
+    Units: Dmnl
+    
+(073)    New Regular Consumers=
+        Consumer Growth*New Regular Consumer Ratio
+    Units: **undefined**
+    
+(074)    "No. Batteries"=
+        INTEGER(Average Daily Battery Eenergy)+1
+    Units: Dmnl
+    
+(075)    "No. Bettery Replacement"=
+        IF THEN ELSE(MODULO(PV Life, Battery Life )=0, PV Life/Battery Life , INTEGER
+    ( PV Life/Battery Life )+1 )
+    Units: Dmnl
+    
+(076)    "No. PVs"=
+        INTEGER(Regular Consumer Average Demand*(1+Reliablity Margin)/PV monthly Generation
+    )+1
+    Units: Dmnl
+    
+(077)    Normal Battery Cost Reduction rate=
+        0.006
+    Units: **undefined**
+    
+(078)    Normal PV Cost Reduction rate=
+        0.01
+    Units: **undefined**
+    
+(079)    NPV PV=
+        (NPV PV Income-PV Cost)*PV size
+    Units: **undefined**
+    
+(080)    NPV PV Income=
+        -PV monthly Income*((1-(1+Discount Rate)^(PV Life+1))/Discount Rate)
+    Units: **undefined**
+    
+(081)    NPV PV Ratio=
+        NPV PV/PV Cost
+    Units: Dmnl
+    
+(082)    Permited Profit=
+        0.2
+    Units: Dmnl
+    
+(083)    population growth rate=
+        0.03/12
+    Units: 1/Month
+    
+(084)    price eleasticity of prosumers=
+        -0.2
+    Units: Dmnl
+    
+(085)    price eleasticity of regular consumers=
+        -0.1
+    Units: Dmnl
+    
+(086)    Prosumer Average Demand= INTEG (
+        change in Prosumer Demand,
+            300)
+    Units: kWh/Month/Customer
+    
+(087)    Prosumers= INTEG (
+        installing PV by imitation+installing PV by Innovation+New Prosumers-Installing Battery By Imitation
+    -Installing Battery by Innovation,
+            0)
+    Units: Customer
+    
+(088)    Prosumers Demand=
+        Prosumer Average Demand*Prosumers
+    Units: kWh/Month
+    
+(089)    PV Cost= INTEG (
+        -PV Cost Reduction,
+            4000)
+    Units: Dollar/kw
+    
+(090)    PV Cost Reduction=
+        effect of Customers on PV Cost*effect of Minimum PV Cost*Normal PV Cost Reduction rate
+    *PV Cost
+    Units: **undefined**
+    
+(091)    PV Life=
+        240
+    Units: Month
+    
+(092)    PV monthly Generation=
+        140
+    Units: kWh/Month
+    
+(093)    PV monthly Income=
+        Electricity Tariff*PV monthly Generation
+    Units: **undefined**
+    
+(094)    PV size=
+        5
+    Units: kw
+    
+(095)    Regular Consumer Average Demand= INTEG (
+        change in Regular Consumer Demand,
+            900)
+    Units: kWh/(Month*Customer)
+    
+(096)    Regular Consumers= INTEG (
+        New Regular Consumers-Direct Defection By Imitation-Direct Defection by Innovation
+    -installing PV by imitation-installing PV by Innovation,
+            1e+06)
+    Units: Customer
+    
+(097)    Regular Consumers Demand=
+        Regular Consumer Average Demand*Regular Consumers
+    Units: kWh/Month
+    
+(098)    Reliablity Margin=
+        0.5
+    Units: Dmnl
+    
+(099)    SAVEPER  = 
+            TIME STEP
+    Units: Month [0,?]
+    The frequency with which output is stored.
+
+(100)    Storage to Daily Load Factor=
+        0.5
+    Units: Dmnl
+    
+(101)    Tariff Correction Period=
+        24
+    Units: Month
+    
+(102)    TIME STEP  = 1
+    Units: Month [0,?]
+    The time step for the simulation.
+
+(103)    time to adjust Prosumer Demand=
+        3
+    Units: Month
+    
+(104)    time to adjust Regular Consumer demand=
+        3
+    Units: Dmnl
+    
+(105)    Total Battery Cost=
+        Battery Cost*"No. Bettery Replacement"*"No. Batteries"
+    Units: **undefined**
+    
+(106)    Total Consumers= INTEG (
+        Consumer Growth,
+            1e+06)
+    Units: Customer
+    
+(107)    Total Costs=
+        Fixed Costs+Variable Costs
+    Units: Dollar/Month
+    
+(108)    Total Customers with PV=
+        Defectors+Prosumers
+    Units: Customer
+    
+(109)    Total PV Cost=
+        "No. PVs"*PV Cost
+    Units: **undefined**
+    
+(110)    Utility Energy Sale=
+        Prosumers Demand+Regular Consumers Demand
+    Units: kWh/Month
+    
+(111)    Variable Costs=
+        Energy Procurement*Generation Price
+    Units: Dollar/Month
+    
